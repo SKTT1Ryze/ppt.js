@@ -60,25 +60,6 @@
   <body>
     <div class="reveal">
       <div class="slides">
-        <img
-          src="images/hust.png"
-          alt="hust_logo"
-          width="80"
-          height="80"
-          style="float: left"
-        />
-
-        <a href="https://github.com/SKTT1Ryze/ppt.js">
-          <img
-            src="http://172.26.222.85:3344/github.svg"
-            alt="github"
-            width="50"
-            height="50"
-            style="float: right"
-            onerror="javascript:this.src='images/github.svg';"
-          />
-          <!-- <img src="http://172.26.222.85:3344/github.svg" alt="github" width="50" height="50" style="float: right;"> -->
-        </a>
 
         <section
           data-background-image="images/background2.jpeg"
@@ -1017,61 +998,6 @@
             </div>
           </div>
         </section>
-
-        <section
-          data-background-image="images/background.jpg"
-          data-background-opacity="0.25"
-        >
-          <div class="codeText">
-            <div class="codeTextItem">
-              <h3>毕设成果为本PPT的演示提供支持！</h3>
-            </div>
-            <div class="codeTextItem">
-              <pre><code data-line-numbers data-trim data-noescape><script type="text/template">
-                 <!-- 前端 -->
-                <img src="http://172.26.222.85:3344/github.svg">
-
-                // 后端
-                async fn main() {
-                  // 监听ip地址和端口
-                  let listener = TcpListener::bind("0.0.0.0:3344").await;
-                  
-                  loop {
-                    // 建立TCP连接
-                    let stream = listener.accept().await;
-
-                    Runtime::spawn(async move {
-                      let mut buf = [0; BUF_LEN];
-                      
-                      // 接收HTTP请求
-                      stream.recv(&mut buf).await;
-                      
-                      // 处理HTTP请求
-                      handle_request(&mut buf);
-                      
-                      // 发送响应字节流
-                      stream.send(&buf).await;
-                    });
-                  }
-                }
-              </script></code></pre>
-            </div>
-          </div>
-        </section>
-        <!-- 本PPT演示依赖于我的毕设成果提供的支持。
-        这个PPT是一个前端项目，其中某些图片资源是请求后端返回的，
-        而后端服务是基于毕设项目Emma搭建的。-->
-
-        <!-- <section data-background-image="images/background.jpg" data-background-opacity=0.25> -->
-        <!--   <div class="imageText"> -->
-        <!--     <div class="imageTextItem"> -->
-        <!--       <h2>&#38;nbsp&#38;nbsp&#38;nbsp&#38;nbsp&#38;nbsp&#38;nbsp&#38;nbsp&#38;nbsp&#38;nbsp&#38;nbsp感谢观看！</h2> -->
-        <!--     </div> -->
-        <!--     <div class="imageTextItem"> -->
-        <!--       <img src="images/chuangzhen.png" height="500" width="500"> -->
-        <!--     </div> -->
-        <!--   </div> -->
-        <!-- </section> -->
 
         <section
           data-background-image="images/background2.jpeg"
