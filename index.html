@@ -205,7 +205,7 @@
               </ul>
             </ol>
             <h4 class="fragment" style="margin-top: 16px;color: red">
-              Both of them lead to weak throughput performance in high-concurrency system.
+              Both of them lead to <b>weak throughput performance</b> in high-concurrency system.
             </h4>
           </div>
         </section>
@@ -325,14 +325,18 @@
           <h3>Research Objectives</h3>
           <div style="text-align: left">
             <h4>
-              The goal is to design and implement a <b>high-performance asynchronous programming framework</b> similar to <b>OpenMPI</b> but with distinct features based on Linux io_uring and Coroutines.
+              The goal is to design and implement a <b>high-performance asynchronous programming framework</b> similar to <b>OpenMPI</b> but with distinct features
+              based on Linux <b>io_uring</b> and <b>Coroutine</b>.
             </h4>
           </div>
           <h3 class="fragment" style="margin-top: 60px;color: #b3aa1bc9">
-            Programming Framework like OpenMPI
+            A <b>new kind</b> of Programming Framework like OpenMPI
           </h3>
           <div class="fragment" style="margin-top: 20px;color: #1db31bc9;font-size: 24px">
-            It makes building systems with powerful throughput performance easier!
+            It makes building systems with <b>powerful throughput performance</b> easier!
+          </div>
+          <div class="fragment" style="margin-top: 20px;color: red;font-size: 24px">
+            And it can <b>cooperate</b> with the OpenMPI for the higher performance!
           </div>
         </section>
 
@@ -356,9 +360,6 @@
               <ol style="font-size:16px">
                 <li style="margin-bottom: 5px">
                   It's designed for I/O-intensive tasks while OpenMPI is designed for compute-intensive tasks.
-                </li>
-                <li style="margin-bottom: 5px">
-                  It's based on coroutines while OpenMPI is based on inter-process communication.
                 </li>
                 <li style="margin-bottom: 5px">
                   It typically works on a single computer while OpenMPI is primarily used across multiple computers or compute nodes.
@@ -534,7 +535,7 @@
               <div data-id="task0" class="task" style="bottom:10px;left:540px">
                 Task
               </div>
-              <div class="label" style="bottom:10px;left:600px;">Execute</div>
+              <div class="label" style="bottom:10px;left:600px;">Resume and execute</div>
               <div data-id="task1" class="task" style="bottom:90px;left:300px"></div>
               <div data-id="task2" class="task" style="bottom:90px;left:350px"></div>
               <div data-id="task3" class="task" style="bottom:90px;left:400px"></div>
