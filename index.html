@@ -153,9 +153,6 @@
         >
           <h2>High Performance Asynchronous Programming Framework</h2>
           <h4>based on Linux Asynchronous I/O and Coroutine</h4>
-          <!-- <h3 class="tiedContainer"> -->
-          <!--   <div class="tiedItem">答辩学生：车春池</div> -->
-          <!-- </h3> -->
         </section>
 
         <section
@@ -690,7 +687,7 @@
                 The code is very complex and ugly!
               </h3>
               <h3 class="fragment" style="color:#c21212d6">
-                Just imagine if there is no OpenMPI in the field of parallel computing.
+                Just imagine if there is no OpenMPI in the field of HPC.
               </h3>
             </div>
             <div class="codeTextItem">
@@ -804,46 +801,48 @@
             </div>
           </div>
         </section>
-        <!-- 最终成果是实现了两个异步编程框架Emma和Kuro。 -->
 
         <section
           data-background-image="images/background.jpg"
           data-background-opacity="0.25"
         >
-          <h4>性能测试</h4>
+          <h3>Benchmark</h3>
           <div class="codeText">
             <div class="codeTextItem">
-              <ol>
+              <ol style="font-size:16px">
                 <li style="margin-bottom: 5px">
-                  测试对象：Emma，Kuro和以下框架；
+                  Comparison Subject:
                 </li>
                 <ul>
                   <li style="margin-bottom: 5px">
-                    Tokio：最成熟的Rust异步运行时；
+                    <a href="https://github.com/tokio-rs/tokio">Tokio</a>: The most famous asynchronous framework in the Rust community
                   </li>
                   <li style="margin-bottom: 5px">
-                    async-std：Rust异步运行时新起之秀；
+                    <a href="https://github.com/async-rs/async-std">async-std</a>: Another asynchronous framework in the Rust community
                   </li>
-                  <li style="margin-bottom: 5px">Go：Go语言原生协程框架;</li>
                   <li style="margin-bottom: 5px">
-                    Sync：同步I/O和多线程框架。
+                    <a href="https://go.dev/tour/concurrency/1">Go</a>: Goroutine in the Go programming language
+                  </li>
+                  <li style="margin-bottom: 5px">
+                    Sync: Traditional solution using Synchronous I/O and Multithreading
                   </li>
                 </ul>
                 <li style="margin-bottom: 5px">
-                  测试方法：用各个框架实现一个HTTP服务器，然后使用Apache
-                  Benchmark软件对服务器进行压力测试，并对比测试结果；
+                  Testing Methodology: Implement an HTTP server using each framework,
+                  then test performance on the servers using <a href="https://httpd.apache.org/docs/2.4/programs/ab.html">Apache Benchmark tool</a>,
+                  and compare the test results.
                 </li>
-                <li style="margin-bottom: 5px">测试指标：服务器吞吐量；</li>
-                <li style="margin-bottom: 5px">测试环境：</li>
+                <li style="margin-bottom: 5px">Performance Metrics: The throughput of the server</li>
+                <li style="margin-bottom: 5px">Testing Environment:</li>
                 <ul>
                   <li style="margin-bottom: 5px">
-                    CPU：Intel(R) Xeon(R) Gold 5117 CPU @ 2.00GHz，56核；
+                    CPU: Intel(R) Xeon(R) Gold 5117 CPU @ 2.00GHz, 56 Cores;
                   </li>
                   <li style="margin-bottom: 5px">
-                    内存：32GB，2666 MT/s x 16（条）；
+                    Memory: 32GB, 2666 MT/s x 16;
                   </li>
                   <li style="margin-bottom: 5px">
-                    网卡：Intel Corporation Ethernet Connection X722 for 10GbE
+                    NIC: Intel Corporation Ethernet Connection X722 for 10GbE
                     SFP+ (rev 09)。
                   </li>
                 </ul>
@@ -858,35 +857,26 @@
             </div>
           </div>
         </section>
-        <!-- 接下来讲下性能测试。因为毕设实现的是异步编程框架，
-        因此这里主要进行框架和框架之间的性能对比。
-        测试对象是实现的框架Emma和Kuro
-        和开源社区中三个比较主流和高性能的异步编程框架Tokio，async-std和Go。
-        同时，为了验证异步I/O和协程的高性能，添加一组对照组，同步I/O和多线程框架，
-        名叫Sync框架。
-        测试方法是用各个框架分别编写一个HTTP服务器应用程序，然后用Apache Benchmark
-        这个测试工具对实现的服务器进行压力测试，最终对比测试结果。
-        测试指标是服务器的吞吐量。-->
 
         <section
           data-background-image="images/background.jpg"
           data-background-opacity="0.25"
         >
-          <h4>测试结果</h4>
+          <h3>Benchmark Results</h3>
           <div class="imageText">
             <div class="imageTextItem">
-              <ol>
+              <ol style="font-size: 16px">
                 <li style="margin-bottom: 5px">
-                  横坐标是HTTP请求数，纵坐标是服务器吞吐量；
+                  X-axis represents the number of HTTP requests, and the Y-axis represents server throughput.
                 </li>
                 <li style="margin-bottom: 5px">
-                  随着请求数增大，服务器吞吐量趋于一个恒定值；
+                  C represents the concurrency of network requests, and L represents the number of processing cores in the server.
                 </li>
                 <li style="margin-bottom: 5px">
-                  Emma和Kuro框架的吞吐量最高，Go框架的吞吐量最低；
+                  Emma and Kuro frameworks achieve the highest throughput, while the Go framework has the lowest throughput.
                 </li>
                 <li style="margin-bottom: 5px">
-                  Kuro框架比同步I/O和多线程框架在吞吐量指标上最高能达到78%的提升。
+                  <b>The Kuro framework exhibits a throughput improvement of up to 78% compared to synchronous I/O and multithreaded frameworks.</b>
                 </li>
               </ol>
             </div>
@@ -899,35 +889,23 @@
             </div>
           </div>
         </section>
-        <!-- 右边这两张图分别是在20和200个客户端并发请求条件下的测试结果。
-        横坐标是HTTP请求数，纵坐标是服务器吞吐量。
-        从图中可以看到，Emma和Kuro框架的整体吞吐量是最高的，Go框架的最低。
-        这证明我们实现的两款框架都有比较好的性能。
-        此外大部分异步编程框架的性能曲线都比同步I/O和多线程框架要高，
-        其中Kuro框架最高可以比Sync框架高78%左右的性能，
-        这证明了异步I/O和协程的高性能。-->
 
         <section data-background-image="images/background.jpg" data-background-opacity=0.25>
           <h2>Q & A</h2>
         </section>
 
         <section data-background-image="images/background.jpg" data-background-opacity=0.25>
-          <div class="imageText">
-            <div class="imageTextItem">
-              <h2 style="margin-left:80px">Thank you!</h2>
-            </div>
-            <div class="imageTextItem">
-              <img src="images/chuangzhen.png" height="500" width="500">
-            </div>
-          </div>
+          <h2>Thank you!</h2>
+          <!-- <div class="imageText"> -->
+          <!--   <div class="imageTextItem"> -->
+          <!--     <h2 style="margin-left:80px">Thank you!</h2> -->
+          <!--   </div> -->
+          <!--   <div class="imageTextItem"> -->
+          <!--     <img src="images/chuangzhen.png" height="500" width="500"> -->
+          <!--   </div> -->
+          <!-- </div> -->
         </section>
 
-        <!-- <section -->
-        <!--   data-background-image="images/background2.jpeg" -->
-        <!--   data-background-opacity="0.25" -->
-        <!-- > -->
-        <!--   <h2>感谢观看！</h2> -->
-        <!-- </section> -->
       </div>
     </div>
 
