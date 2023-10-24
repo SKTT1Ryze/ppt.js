@@ -182,7 +182,7 @@
               </a>
             </div>
             <div class="tiedItem">
-              <a href="/#/24">
+              <a href="/#/23">
                 04 Results
               </a>
             </div>
@@ -207,7 +207,9 @@
                 <li>The cost of thread switching is very high.</li>
               </ul>
             </ol>
-            <h4 style="margin-top: 16px;color: red">Both of them lead to weak system throughput performance in high-concurrency scenarios.</h4>
+            <h4 class="fragment" style="margin-top: 16px;color: red">
+              Both of them lead to weak system throughput performance in high-concurrency scenarios.
+            </h4>
           </div>
         </section>
 
@@ -240,8 +242,8 @@
                   Asynchronous I/O operations run in the background and do not block any thread.
                 </li>
               </ol>
-              <h4 style="text-align:left;margin-top: 16px;color: #00b9ff">
-                Asynchronous I/O improves performance, because I/O operations and application processing can run simultaneously.
+              <h4 class="fragment" style="text-align:left;margin-top: 16px;color: #00b9ff">
+                Asynchronous I/O improves performance, because I/O operations and application processing can run in parallel.
               </h4>
             </div>
             <div class="image">
@@ -332,9 +334,21 @@
           data-background-opacity="0.25"
         >
           <h3>Research Objectives</h3>
-          <h4 style="text-align: left">
-            The goal is to design and implement a high-performance programming framework similar to OpenMPI but with distinct features based on Linux io_uring and Coroutines.
-          </h4>
+          <div style="text-align: left">
+            <h4>
+              The goal is to design and implement a <b>high-performance programming framework</b> similar to <b>OpenMPI</b> but with distinct features based on Linux io_uring and Coroutines.
+            </h4>
+            <ol>
+              <li>Faster then<li>
+            </ol>
+          </div>
+        </section>
+
+        <section
+          data-background-image="images/background.jpg"
+          data-background-opacity="0.25"
+        >
+          <h3>The Framework vs OpenMPI</h3>
           <div class="imageText">
             <div class="imageTextItem">
               <h4>Commonalities with OpenMPI:</h4>
@@ -675,6 +689,9 @@
               <h3 class="fragment" style="color:red">
                 The code is very complex and ugly!
               </h3>
+              <h3 class="fragment" style="color:#c21212d6">
+                Just imagine if there is no OpenMPI in the field of parallel computing.
+              </h3>
             </div>
             <div class="codeTextItem">
               <pre><code data-line-numbers data-trim data-noescape><script type="text/template">
@@ -764,414 +781,6 @@
             </div>
           </div>
         </section>
-
-        <section
-          data-background-image="images/background.jpg"
-          data-background-opacity="0.25"
-        >
-          <div><h4>Task模块设计</h4></div>
-          <div class="imageText">
-            <div class="imageTextItem">
-              <ol>
-                <li style="margin-bottom: 5px">
-                  基于<mark>面向对象</mark>的思想，将所有I/O操作统一抽象成Op类；
-                </li>
-                <li style="margin-bottom: 5px">
-                  继承Op父类可派生出Op子类，每个Op子对象对应一个I/O操作；
-                </li>
-                <li style="margin-bottom: 5px">
-                  一个Task由一个或多个Op子对象呈树状构成。
-                </li>
-              </ol>
-            </div>
-            <div class="image">
-              <img
-                src="images/op-task.drawio.svg"
-                alt="op-task"
-                width="800"
-                height="400"
-                style="float: right"
-              />
-            </div>
-          </div>
-        </section>
-        <!-- 下面主要重点介绍一下Task模块的设计与实现。
-        首先介绍一下Op类的概念。Linux平台上存在很多种I/O操作，
-        比如打开文件，文件读，文件写，建立Tcp连接等等，
-        这些I/O操作在io_uring的语境下的区别仅仅在于提交
-        的I/O请求不同，因此为了提高代码复用度，降低工作量，
-        这里基于面向对象的思想，将所有I/O请求抽象为Op类。xxx-->
-
-        <section
-          data-background-image="images/background.jpg"
-          data-background-opacity="0.25"
-        >
-          <div><h4>Task模块设计</h4></div>
-          <div class="imageText">
-            <div class="imageTextItem">
-              <ol>
-                <li style="margin-bottom: 5px">一个Task对应一个协程；</li>
-                <li style="margin-bottom: 5px">
-                  Task在执行过程中可以挂起和恢复；
-                </li>
-                <li style="margin-bottom: 5px">
-                  Task中的每个Op子对象对应为一个切换点；
-                </li>
-                <li style="margin-bottom: 5px">
-                  Task执行到切换点有两种状态：就绪和等待；
-                </li>
-                <ul>
-                  <li style="margin-bottom: 5px">就绪状态下继续执行；</li>
-                  <li style="margin-bottom: 5px">等待状态下挂起。</li>
-                </ul>
-                <li style="margin-bottom: 5px">
-                  Task恢复时从上次挂起的地方继续执行。
-                </li>
-              </ol>
-            </div>
-            <div class="image">
-              <img
-                src="images/task-execute.drawio.svg"
-                alt="task-execute"
-                width="500"
-                height="400"
-                style="float: right"
-              />
-            </div>
-          </div>
-        </section>
-        <!-- Task对应协程的概念，它可以在执行过程中挂起和恢复，
-        Task由一个或多个Op子对象组成，每个Op子对象都是一个切换点，
-        Task运行到切换点时会检查此处的I/O状态，如果是就绪状态，
-        则继续运行，如果是等待状态，当前Task则需要被挂起，等待I/O操作完成。
-        恢复执行后，Task从上次挂起的地方继续执行。
-        右边是Task模块在执行时的时序图。-->
-
-        <section
-          data-background-image="images/background.jpg"
-          data-background-opacity="0.25"
-        >
-          <h4>Task模块实现（Rust）</h4>
-          <div class="codeText">
-            <div class="codeTextItem" style="vertical-align: middle">
-              <ol>
-                <li style="margin-bottom: 5px">
-                  Rust不支持面向对象编程，参考前端框架<a
-                    href="https://reactjs.org/"
-                    >React</a
-                  >的设计， 使用<mark>组件化</mark>的方式达到继承的效果；
-                </li>
-                <li style="margin-bottom: 5px">
-                  子组件接口SubOp：创建I/O请求方法create_sqe；
-                </li>
-                <li style="margin-bottom: 5px">
-                  Future是Rust官方提供用于异步编程的接口；
-                </li>
-                <li style="margin-bottom: 5px">
-                  为Op&ltT&gt实现Future接口：第一次执行调用子组件的create_sqe方法创建sqe，
-                  然后注册到IoUring模块，接着挂起；恢复后（第二次调用）返回结果。
-                </li>
-              </ol>
-            </div>
-            <div class="codeTextItem">
-              <pre><code data-line-numbers data-trim data-noescape><script type="text/template">
-                /// 子组件需要实现的接口
-                trait SubOp {
-                  fn create_sqe(&self) -> Sqe;
-                }
-                /// Op结构体作为父组件
-                struct Op<T: SubOp> {
-                  component: T,
-                  is_completed: bool
-                  ...
-                }
-                // 为父组件实现Future接口
-                impl<T: SubOp> Future for Op<T> {
-                  type Output = ...;
-                  fn poll(&self, ...) -> Poll<Self::Output> {
-                    if !self.is_completed {
-                      // 第一次调用
-
-                      // 通过子组件创建I/O请求sqe
-                      let sqe = self.component.create_sqe();
-
-                      // 注册sqe到IoUring模块
-                      io_uring.submit(sqe);
-
-                      // 挂起
-                      return Poll::Pending;
-                    } else {
-                      // I/O事件已经完成
-                      return Poll::Ready(...);
-                    }
-                  }
-                }
-              </script></code></pre>
-            </div>
-          </div>
-        </section>
-        <!-- 这里介绍一下Rust语言中Task模块的实现。
-        Rust不支持面向对象编程，因此这里参考前端框架React的设计，
-        采用组件化的方式达到继承的效果。
-        先定义一个名为SubOp的接口，这个接口有一个create_sqe方法，
-        用于创建I/O请求。然后定义一个Op结构体，
-        这个Op以实现了SubOp接口的结构体作为子组件。
-        接着为Op实现Future接口，Future是Rust语言官方提供的用于
-        异步编程的接口，接口中只有一个poll方法。
-        实现Future接口的具体逻辑是
-        第一次执行poll方法时调用子组件的create_sqe方法创建
-        I/O请求，然后将这个请求注册到IoUring模块，
-        接着挂起当前Task；Task被恢复后，再次执行poll方法，
-        这时候直接返回I/O操作的结果。
-        右边是示例代码。-->
-
-        <section
-          data-background-image="images/background.jpg"
-          data-background-opacity="0.25"
-        >
-          <h4>Task模块实现（Rust）</h4>
-          <div class="codeText">
-            <div class="codeTextItem" style="vertical-align: middle">
-              <ol>
-                <li style="margin-bottom: 5px">
-                  Future对象具有<mark>组合性</mark>；
-                </li>
-                <li style="margin-bottom: 5px">
-                  一个Op&ltT&gt对应一个叶子Future， 一个Task对应一个大Future，
-                </li>
-                <li style="margin-bottom: 5px">
-                  通过Future的组合性将一个或多个Op&ltT&gt组合成一个Task；
-                </li>
-                <li style="margin-bottom: 5px">
-                  <mark>async/await</mark
-                  >：Rust编译器在语言层面为Future组合性提供的支持。
-                </li>
-              </ol>
-            </div>
-            <div class="codeTextItem">
-              <pre><code data-line-numbers data-trim data-noescape><script type="text/template">
-                // Rust编译器将async函数的返回值
-                // 转换成Future
-                async fn task() {
-                  ...
-
-                  op1.await;
-                  op2.await;
-                  
-                  ...
-                }
-              </script></code></pre>
-            </div>
-            <div class="codeTextItem">
-              <img
-                src="images/future-combine.drawio.svg"
-                alt="future-combine"
-              />
-            </div>
-          </div>
-        </section>
-        <!-- 在Rust中，Future具有组合性，多个子Future可以组合成一个大Future。
-        于是一个Op对应于一个子Future，一个Task对应于一个大Future，
-        通过Future的组合性可以将一个或多个Op组合成一个Task。
-        此外，Rust编译器为这种组合性提供了支持，它将async关键字标记的
-        函数或函数块的返回值转换成大Future，使得我们可以像写同步代码
-        一样编写异步代码。
-        -->
-
-        <section
-          data-background-image="images/background.jpg"
-          data-background-opacity="0.25"
-        >
-          <h4>Rust实现中Task执行流程</h4>
-          <div class="codeText">
-            <div class="codeTextItem">
-              <img
-                src="images/task-rust.drawio.svg"
-                alt="task-rust"
-                width="650"
-              />
-            </div>
-          </div>
-        </section>
-        <!-- 最终Rust实现中Task执行的时序图如下。 -->
-
-        <section
-          data-background-image="images/background.jpg"
-          data-background-opacity="0.25"
-        >
-          <h4>Task模块实现（C++）</h4>
-          <div class="codeText">
-            <div class="codeTextItem" style="vertical-align: middle">
-              <ol>
-                <li style="margin-bottom: 5px">
-                  C++20官方提供Promise和Awaitable两个接口用于协程编程；
-                </li>
-                <ul>
-                  <li>Promise：作为协程的函数返回类型必须实现Promise接口；</li>
-                  <li>Awaitable：类似于Rust中的Future接口，表示一个将来值。</li>
-                </ul>
-                <li style="margin-bottom: 5px">Task实现过程：</li>
-                <ul>
-                  <li>定义Task类，并为其实现Promise接口；</li>
-                  <li>
-                    定义Op&ltT&gt类，并为其实现Awaitable接口，实现思路和在Rust中实现Future接口类似；
-                  </li>
-                  <li>通过重写create_sqe方法派生Op子类。</li>
-                </ul>
-              </ol>
-            </div>
-            <div class="codeTextItem">
-              <pre><code data-line-numbers data-trim data-noescape><script type="text/template">
-                // 示例代码，无法编译
-                template <typename T>
-                class Task {
-                  public:
-                    struct promise_type;
-                    using handle_type = std::coroutine_handle<promise_type>;
-                    
-                    // 实现Promise接口
-                    struct promise_type {
-                      T value;
-
-                      Task get_return_object();
-                      std::suspend_never initial_suspend() { return {}; }
-                      std::suspend_never final_suspend() noexcept { return {}; }
-                      std::suspend_never return_value(T v) {
-                        value = v;
-                        return {};
-                      }
-                    }
-                    
-                    handle_type h_;
-
-                    T result() { return h_.promise().value; }
-                };
-
-                template <typename T>
-                class Op {
-                  public:
-                    std::shared_ptr<io_uring> uring;
-                    
-                    // Op子类需要重写该函数
-                    struct io_uring_sqe create_sqe();
-                    
-                    // 实现Awaitable接口
-                    bool await_ready() { return false; }
-                    void await_suspend(std::coroutine_handle<> h) {
-                      // 通过create_sqe方法创建I/O请求sqe
-                      auto sqe = this->create_sqe();
-
-                      // 将sqe注册到IoUring模块中
-                      this->uring.submit(sqe);
-
-                      // 挂起
-                      return;
-                    }
-                    auto await_resume() {
-                      // 恢复
-                      
-                      // 从IoUring模块收割结果
-                      auto res = this->uring.completion().result();
-                      
-                      return res;
-                    }
-
-                  private:
-                    T value;
-                };
-              </script></code></pre>
-            </div>
-          </div>
-        </section>
-        <!-- 然后介绍下C++语言中Task模块的实现。
-        C++20官方提供了Promise和Awaitable两个接口用于异步编程。
-        在C++中返回类型实现了Promise接口的函数被视为协程，而Awaitable接口类似于
-        Rust中的Future接口，表示一个将来值。
-        因此，C++中Task的实现过程为：
-        先定义一个Task类，并为其实现Promise接口，
-        然后定义Op类，并为其实现Awaitable接口，实现思路和Rust中为Op实现Future接口类似。
-        最后通过重写Op父类中的create_sqe方法来派生Op子类。-->
-
-        <section
-          data-background-image="images/background.jpg"
-          data-background-opacity="0.25"
-        >
-          <h4>Task模块实现（C++）</h4>
-          <div class="codeText">
-            <div class="codeTextItem" style="vertical-align: middle">
-              <ol>
-                <li style="margin-bottom: 5px">
-                  Awaitable对象具有<mark>传递性</mark>；
-                </li>
-                <li style="margin-bottom: 5px">
-                  一个Op&ltT&gt对应一个Awaitable对象，
-                  多个Op&ltT&gt可以在一个Task内部传递；
-                </li>
-                <li style="margin-bottom: 5px">
-                  通过Awaitable的传递性将一个或多个Op&ltT&gt组合成一个Task；
-                </li>
-                <li style="margin-bottom: 5px">
-                  <mark>co_await/co_return</mark
-                  >：C++20编译器在语言层面为Awaitable传递性提供的支持。
-                </li>
-              </ol>
-            </div>
-            <div class="codeTextItem">
-              <pre><code data-line-numbers data-trim data-noescape><script type="text/template">
-                Task<int> task() {
-                  ...
-
-                  co_await op1;
-                  co_await op2;
-                  
-                  ...
-                  co_return 0;
-                }
-              </script></code></pre>
-            </div>
-            <div class="codeTextItem">
-              <img
-                src="images/awaitable-combine.drawio.svg"
-                alt="awaitable-combine"
-              />
-            </div>
-          </div>
-        </section>
-        <!-- C++中Awaitable对象具有传递性，
-        一个Op子对象对应一个Awaitable对象，多个Op可以在一个Task内部传递。
-        可以通过Awaitable对象的传递性将一个或多个Op组合成一个Task。
-        同样C++编译器也为这种传递性提供了支持。-->
-
-        <section
-          data-background-image="images/background.jpg"
-          data-background-opacity="0.25"
-        >
-          <h4>C++实现中Task执行流程</h4>
-          <div class="codeText">
-            <div class="codeTextItem">
-              <img
-                src="images/task-cpp.drawio.svg"
-                alt="task-cpp"
-                width="650"
-              />
-            </div>
-          </div>
-        </section>
-        <!-- 最终C++实现中Task执行的时序图如下。 -->
-
-        <section
-          data-background-image="images/background.jpg"
-          data-background-opacity="0.25"
-        >
-          <h4>其他模块：...</h4>
-          <div class="codeText">
-            <div class="codeTextItem">
-              <img src="images/todo.drawio.svg" alt="todo" width="500" />
-            </div>
-          </div>
-        </section>
-        <!-- 由于时间关系，其他一些功能模块这里不再介绍，
-        感兴趣的同学和老师可以参考毕业论文。-->
 
         <section
           data-background-image="images/background.jpg"
