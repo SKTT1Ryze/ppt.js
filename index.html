@@ -167,7 +167,7 @@
               </a>
             </div>
             <div class="tiedItem">
-              <a href="/#/8">
+              <a href="/#/9">
                 02 Literature Review
               </a>
             </div>
@@ -197,11 +197,11 @@
             <ol>
               <li>use Synchronous I/O</li>
               <ul>
-                <li>Applications processing cannot continue until the I/O operation is completed.</li>
+                <li style="font-size: 18px">Drawback: applications processing cannot continue until the I/O operation is completed.</li>
               </ul>
               <li>use Multithreading</li>
               <ul>
-                <li>The cost of thread switching is very high.</li>
+                <li style="font-size: 18px">Drawback: the cost of thread switching is very high.</li>
               </ul>
             </ol>
             <h4 class="fragment" style="margin-top: 16px;color: red">
@@ -416,6 +416,7 @@
         >
           <div>
             <h3 style="position:relative;bottom:100px">Architectural Design</h3>
+            <h5>Task = Coroutine</h5>
             <div class="archDesignContainer">
               <div data-id="io_uring" class="io_uring">IoUring</div>
               <div data-id="scheduler" class="scheduler">Waiting Queue</div>
@@ -643,7 +644,7 @@
           data-background-image="images/background.jpg"
           data-background-opacity="0.25"
         >
-          <h4>Multi-core Design</h4>
+          <h3>Multi-core Design</h3>
           <div class="imageText">
             <div class="imageTextItem">
               <ol>
@@ -787,7 +788,7 @@
           data-background-opacity="0.25"
         >
           <h4>
-            Results: <a href="https://github.com/sekirio-rs/Kuro">Kuro</a>(C++) And <a
+            Results: <a href="https://github.com/sekirio-rs/Kuro">Kuro</a>(C++) and <a
               href="https://github.com/sekirio-rs/Emma"
               >Emma</a
             >(Rust)
@@ -836,14 +837,14 @@
                 <li style="margin-bottom: 5px">Testing Environment:</li>
                 <ul>
                   <li style="margin-bottom: 5px">
-                    CPU: Intel(R) Xeon(R) Gold 5117 CPU @ 2.00GHz, 56 Cores;
+                    CPU: Intel(R) Xeon(R) Gold 5117 CPU @ 2.00GHz, 56 Cores
                   </li>
                   <li style="margin-bottom: 5px">
-                    Memory: 32GB, 2666 MT/s x 16;
+                    Memory: 32GB, 2666 MT/s x 16
                   </li>
                   <li style="margin-bottom: 5px">
                     NIC: Intel Corporation Ethernet Connection X722 for 10GbE
-                    SFP+ (rev 09)。
+                    SFP+ (rev 09)
                   </li>
                 </ul>
               </ol>
