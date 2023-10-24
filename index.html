@@ -185,7 +185,6 @@
             </div>
           </h3>
         </section>
-        <!-- 下面我将会从以下四个方面介绍我的毕设项目。 -->
 
         <section
           data-background-image="images/background.jpg"
@@ -193,19 +192,20 @@
         >
           <h3>Background of the Study</h3>
           <div style="text-align: left">
-            <h4>The Input/Output(I/O) operations in the traditional high-concurrency system:</h4>
+            <h4>When talking about the performance of I/O operations, like <b>file transfers</b> and <b>network communication</b>...</h4>
+            <h4>There two drawbacks in the traditional system:</h4>
             <ol>
               <li>use Synchronous I/O</li>
-              <ul>
-                <li style="font-size: 18px">Drawback: applications processing cannot continue until the I/O operation is completed.</li>
+              <ul style="margin-bottom: 5px">
+                <li style="font-size: 18px">Applications processing cannot continue until the I/O operation is completed.</li>
               </ul>
               <li>use Multithreading</li>
-              <ul>
-                <li style="font-size: 18px">Drawback: the cost of thread switching is very high.</li>
+              <ul style="margin-bottom: 5px">
+                <li style="font-size: 18px">The cost of thread switching is very high.</li>
               </ul>
             </ol>
             <h4 class="fragment" style="margin-top: 16px;color: red">
-              Both of them lead to weak system throughput performance in high-concurrency scenarios.
+              Both of them lead to weak throughput performance in high-concurrency system.
             </h4>
           </div>
         </section>
@@ -216,10 +216,10 @@
         >
           <h3>Modern Solutions</h3>
           <div style="text-align: left">
-            <h4>Maybe we can improve this situation with two steps:</h4>
+            <h4>Maybe we can improve that situation with two steps:</h4>
             <ol>
-              <li>Replace Synchronous I/O with the Asynchronous I/O.</li>
-              <li>Utilize the Coroutine technology.</li>
+              <li>Replace Synchronous I/O with the <b>Asynchronous I/O</b>.</li>
+              <li>Utilize the <b>Coroutine</b> technology.</li>
             </ol>
           </div>
         </section>
@@ -233,14 +233,14 @@
             <div class="imageTextItem">
               <ol>
                 <li style="margin-bottom: 5px">
-                  Synchronous I/O operations block the thread until the I/O request has completed.
+                  Synchronous I/O operations <b>blocks</b> until the I/O request has completed.
                 </li>
                 <li style="margin-bottom: 5px">
-                  Asynchronous I/O operations run in the background and do not block any thread.
+                  Asynchronous I/O operations <b>run in the background</b> and never blocks.
                 </li>
               </ol>
               <h4 class="fragment" style="text-align:left;margin-top: 16px;color: #00b9ff">
-                Asynchronous I/O improves performance, because I/O operations and application processing can run in parallel.
+                Asynchronous I/O improves performance, because I/O operations and application processing can <b>run in parallel</b>.
               </h4>
             </div>
             <div class="image">
@@ -268,16 +268,11 @@
             <div class="imageTextItem">
               <ol>
                 <li style="margin-bottom: 5px">
-                  Shared memory and circular queues for information exchange between kernel and user.
+                  Applications submit I/O requests and then <b>continue other tasks</b>.
                 </li>
-                <!-- it uses shared memory and circular queues to facilitate information exchange between kernel space and user space. -->
-                <li style="margin-bottom: 5px">Submission Queue(SQ) for submitting I/O requests.</li>
                 <li style="margin-bottom: 5px">
-                  Completion Queue(CQ) for obtaining I/O completion events.
+                  Once the I/O is completed, the applications can obtain the results from the memory.
                 </li>
-                <!-- <li style="margin-bottom: 5px"> -->
-                <!--   it supports lock-free concurrency, and achieves state synchronization internally through memory barrier techniques. -->
-                <!-- </li> -->
               </ol>
             </div>
             <div class="image">
@@ -303,12 +298,9 @@
                 <li style="margin-bottom: 5px">
                   A coroutine is a function that can suspend execution to be resumed later.
                 </li>
+                <li style="margin-bottom: 5px">Advantages over threads: Lower overhead.</li>
                 <li style="margin-bottom: 5px">
-                  It allows handle non-blocking I/O without explicit callbacks.
-                </li>
-                <li style="margin-bottom: 5px">Advantages over threads: Lower context-switching overhead.</li>
-                <li style="margin-bottom: 5px">
-                  Disadvantages over threads: Inability to utilize multi-core CPU, cannot execute concurrently.
+                  Disadvantages over threads: Unable to utilize multi-core CPU, cannot execute concurrently.
                 </li>
               </ol>
             </div>
@@ -337,11 +329,11 @@
             </h4>
           </div>
           <h3 class="fragment" style="margin-top: 60px;color: #b3aa1bc9">
-            io_uring + Coroutine = Asynchronous Programming Framework
+            Programming Framework like OpenMPI
           </h3>
-          <h3 class="fragment" style="margin-top: 60px;color: #1db31bc9">
-            It helps build systems with powerful throughput performance!
-          </h3>
+          <div class="fragment" style="margin-top: 20px;color: #1db31bc9;font-size: 24px">
+            It makes building systems with powerful throughput performance easier!
+          </div>
         </section>
 
         <section
@@ -369,7 +361,7 @@
                   It's based on coroutines while OpenMPI is based on inter-process communication.
                 </li>
                 <li style="margin-bottom: 5px">
-                  It typically manages concurrency within a single computer while OpenMPI is primarily used across multiple computers or compute nodes.
+                  It typically works on a single computer while OpenMPI is primarily used across multiple computers or compute nodes.
                 </li>
               </ol>
             </div>
@@ -565,7 +557,7 @@
               <div data-id="task0" class="task" style="bottom:-80px;left:460px">
                 Task
               </div>
-              <div class="label" style="bottom:-80px;left:520px;">Finish</div>
+              <div class="label" style="bottom:-80px;left:520px;">If there're no other I/O, finish.</div>
               <div data-id="task1" class="task" style="bottom:90px;left:300px"></div>
               <div data-id="task2" class="task" style="bottom:90px;left:350px"></div>
               <div data-id="task3" class="task" style="bottom:90px;left:400px"></div>
@@ -643,41 +635,41 @@
           </div>
         </section>
 
-        <section
-          data-background-image="images/background.jpg"
-          data-background-opacity="0.25"
-        >
-          <h3>Multi-core Design</h3>
-          <div class="imageText">
-            <div class="imageTextItem">
-              <ol>
-                <li style="margin-bottom: 5px">
-                  Refer to the design of <a
-                    href="https://helda.helsinki.fi//bitstream/handle/10138/313642/tpc_ancs19.pdf?sequence=1"
-                    >Thread-Per-Core</a>.
-                </li>
-                <li style="margin-bottom: 5px">
-                  Bind an io_uring to each cpu core.
-                </li>
-                <li style="margin-bottom: 5px">
-                  Tasks registered in the same io_uring can only run on the same cpu core.
-                </li>
-                <li style="margin-bottom: 5px">
-                  The goal is to reduce inter-core data synchronization and thread switching.
-                </li>
-              </ol>
-            </div>
-            <div class="image">
-              <img
-                src="images/multicore-design.drawio.svg"
-                alt="multicore-design"
-                width="520"
-                height="400"
-                style="float: right"
-              />
-            </div>
-          </div>
-        </section>
+        <!-- <section -->
+        <!--   data-background-image="images/background.jpg" -->
+        <!--   data-background-opacity="0.25" -->
+        <!-- > -->
+        <!--   <h3>Multi-core Design</h3> -->
+        <!--   <div class="imageText"> -->
+        <!--     <div class="imageTextItem"> -->
+        <!--       <ol> -->
+        <!--         <li style="margin-bottom: 5px"> -->
+        <!--           Refer to the design of <a -->
+        <!--             href="https://helda.helsinki.fi//bitstream/handle/10138/313642/tpc_ancs19.pdf?sequence=1" -->
+        <!--             >Thread-Per-Core</a>. -->
+        <!--         </li> -->
+        <!--         <li style="margin-bottom: 5px"> -->
+        <!--           Bind an io_uring to each cpu core. -->
+        <!--         </li> -->
+        <!--         <li style="margin-bottom: 5px"> -->
+        <!--           Tasks registered in the same io_uring can only run on the same cpu core. -->
+        <!--         </li> -->
+        <!--         <li style="margin-bottom: 5px"> -->
+        <!--           The goal is to reduce inter-core data synchronization and thread switching. -->
+        <!--         </li> -->
+        <!--       </ol> -->
+        <!--     </div> -->
+        <!--     <div class="image"> -->
+        <!--       <img -->
+        <!--         src="images/multicore-design.drawio.svg" -->
+        <!--         alt="multicore-design" -->
+        <!--         width="520" -->
+        <!--         height="400" -->
+        <!--         style="float: right" -->
+        <!--       /> -->
+        <!--     </div> -->
+        <!--   </div> -->
+        <!-- </section> -->
 
         <section
           data-background-image="images/background.jpg"
@@ -690,9 +682,9 @@
               <h3 class="fragment" style="color:red">
                 The code is very complex and ugly!
               </h3>
-              <h3 class="fragment" style="color:#c21212d6">
+              <div class="fragment" style="color:#c21212d6">
                 Just imagine if there is no OpenMPI in the field of HPC.
-              </h3>
+              </div>
             </div>
             <div class="codeTextItem">
               <pre><code data-line-numbers data-trim data-noescape><script type="text/template">
@@ -763,6 +755,9 @@
               <h3 class="fragment" style="color:blue">
                 The code is simple and elegant!
               </h3>
+              <div class="fragment" style="color:#12127da3">
+                That's why we say it makes building systems with powerful throughput performance easier!
+              </div>
             </div>
             <div class="codeTextItem">
               <pre><code data-line-numbers data-trim data-noescape><script type="text/template">
@@ -791,10 +786,10 @@
           data-background-opacity="0.25"
         >
           <h4>
-            Results: <a href="https://github.com/sekirio-rs/Kuro">Kuro</a>(C++) and <a
+            Results: Frameworks in C++(<a href="https://github.com/sekirio-rs/Kuro">Kuro</a>) and in Rust(<a
               href="https://github.com/sekirio-rs/Emma"
               >Emma</a
-            >(Rust)
+            >)
           </h4>
           <div class="codeText">
             <div class="codeTextItem">
@@ -819,23 +814,28 @@
                 </li>
                 <ul>
                   <li style="margin-bottom: 5px">
-                    <a href="https://github.com/tokio-rs/tokio">Tokio</a>: The most famous asynchronous framework in the Rust community
+                    <a href="https://github.com/tokio-rs/tokio">Tokio</a>: The most famous asynchronous framework in Rust programming language
                   </li>
                   <li style="margin-bottom: 5px">
-                    <a href="https://github.com/async-rs/async-std">async-std</a>: Another asynchronous framework in the Rust community
+                    <a href="https://github.com/async-rs/async-std">async-std</a>: Another asynchronous framework in Rust programming language
                   </li>
                   <li style="margin-bottom: 5px">
                     <a href="https://go.dev/tour/concurrency/1">Go</a>: Goroutine in the Go programming language
                   </li>
                   <li style="margin-bottom: 5px">
-                    Sync: Traditional solution using Synchronous I/O and Multithreading
+                    Sync: <b>Traditional solution</b> using Synchronous I/O and Multithreading
                   </li>
                 </ul>
                 <li style="margin-bottom: 5px">
-                  Testing Methodology: Implement an HTTP server using each framework,
-                  then test performance on the servers using <a href="https://httpd.apache.org/docs/2.4/programs/ab.html">Apache Benchmark tool</a>,
-                  and compare the test results.
+                  Testing Methodology:
                 </li>
+                <ul>
+                  <li style="margin-bottom: 5px">Implement an HTTP server using each framework,</li>
+                  <li style="margin-bottom: 5px">
+                    Test performance on the servers using <a href="https://httpd.apache.org/docs/2.4/programs/ab.html">Apache Benchmark tool</a>,
+                  </li>
+                  <li style="margin-bottom: 5px">Compare the test results.</li>
+                </ul>
                 <li style="margin-bottom: 5px">Performance Metrics: The throughput of the server</li>
                 <li style="margin-bottom: 5px">Testing Environment:</li>
                 <ul>
