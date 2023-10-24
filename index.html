@@ -177,7 +177,7 @@
           </h3>
           <h3 class="tiedContainer">
             <div class="tiedItem">
-              <a href="/#/9">
+              <a href="/#/10">
                 03 Methodology
               </a>
             </div>
@@ -221,8 +221,8 @@
           <div style="text-align: left">
             <h4>Maybe we can improve this situation with two steps:</h4>
             <ol>
-              <li>replace Synchronous I/O with the Asynchronous I/O.</li>
-              <li>utilize the Coroutine technology.</li>
+              <li>Replace Synchronous I/O with the Asynchronous I/O.</li>
+              <li>Utilize the Coroutine technology.</li>
             </ol>
           </div>
         </section>
@@ -336,12 +336,12 @@
           <h3>Research Objectives</h3>
           <div style="text-align: left">
             <h4>
-              The goal is to design and implement a <b>high-performance programming framework</b> similar to <b>OpenMPI</b> but with distinct features based on Linux io_uring and Coroutines.
+              The goal is to design and implement a <b>high-performance asynchronous programming framework</b> similar to <b>OpenMPI</b> but with distinct features based on Linux io_uring and Coroutines.
             </h4>
-            <ol>
-              <li>Faster then<li>
-            </ol>
           </div>
+          <h3 class="fragment" style="margin-top: 60px;color: #b3aa1bc9">
+            io_uring + Coroutine = Asynchronous Programming Framework
+          </h3>
         </section>
 
         <section
@@ -352,7 +352,7 @@
           <div class="imageText">
             <div class="imageTextItem">
               <h4>Commonalities with OpenMPI:</h4>
-              <ol>
+              <ol style="font-size:16px">
                 <li style="margin-bottom: 5px">Aim to enhance system performance.</li>
                 <li style="margin-bottom: 5px">
                   Applicable to system where multiple tasks are executed concurrently.
@@ -361,7 +361,7 @@
             </div>
             <div class="imageTextItem">
               <h4>Differences from OpenMPI:</h4>
-              <ol>
+              <ol style="font-size:16px">
                 <li style="margin-bottom: 5px">
                   It's designed for I/O-intensive tasks while OpenMPI is designed for compute-intensive tasks.
                 </li>
@@ -382,7 +382,7 @@
         >
           <h3>Literature Review</h3>
           <h4 style="text-align: left">
-            There are some relevant literature:
+            Some relevant literature:
           </h4>
           <div class="imageText">
             <div class="imageTextItem">
@@ -766,9 +766,12 @@
             <div class="codeTextItem">
               <pre><code data-line-numbers data-trim data-noescape><script type="text/template">
                 #include "framework.h" // provided by framework
+                #include <coroutine> // provided by c++20
                 #include <iostream>
 
                 // API provied by framework
+                //
+                // This is a c++20 coroutine with the `int` return type
                 extern int async_io();
 
                 int task() {
@@ -787,17 +790,17 @@
           data-background-opacity="0.25"
         >
           <h4>
-            <a href="https://github.com/sekirio-rs/Emma">Emma</a>（Rust）和<a
-              href="https://github.com/sekirio-rs/Kuro"
-              >Kuro</a
-            >（C++）
+            Results: <a href="https://github.com/sekirio-rs/Kuro">Kuro</a>(C++) And <a
+              href="https://github.com/sekirio-rs/Emma"
+              >Emma</a
+            >(Rust)
           </h4>
           <div class="codeText">
             <div class="codeTextItem">
-              <img src="images/emma.png" alt="emma" />
+              <img src="images/kuro.png" alt="kuro" />
             </div>
             <div class="codeTextItem">
-              <img src="images/kuro.png" alt="kuro" />
+              <img src="images/emma.png" alt="emma" />
             </div>
           </div>
         </section>
@@ -904,86 +907,14 @@
         其中Kuro框架最高可以比Sync框架高78%左右的性能，
         这证明了异步I/O和协程的高性能。-->
 
-        <section
-          data-background-image="images/background.jpg"
-          data-background-opacity="0.25"
-        >
-          <h4>总结与展望</h4>
-          <div class="imageText">
-            <div class="imageTextItem">
-              <ol>
-                <li style="margin-bottom: 5px">
-                  基于Linux平台上的异步I/O技术（io_uring）和Rust/C++语言的协程技术设计并实现了两款
-                  异步编程框架<mark>Emma和Kuro</mark>，在给上层应用开发带来便利的同时，验证了异步I/O和协程
-                  的高效性；
-                </li>
-                <li style="margin-bottom: 5px">
-                  后续计划可以从丰富功能和规范测试两个方面入手：
-                </li>
-                <ul>
-                  <li style="margin-bottom: 5px">
-                    为Emma和Kuro框架适配io_uring的高级用法，实现更多功能；
-                  </li>
-                  <li style="margin-bottom: 5px">
-                    搭建更加规范，完善的测试环境，得出更准确，更全面的测试结果。
-                  </li>
-                </ul>
-                <!-- <li style="margin-bottom: 5px"> -->
-                <!--   感谢我的校内导师-华中科技大学的邵志远老师和校外导师-清华大学的陈渝老师。 -->
-                <!-- </li> -->
-              </ol>
-            </div>
-          </div>
+        <section data-background-image="images/background.jpg" data-background-opacity=0.25>
+          <h2>Q & A</h2>
         </section>
-
-        <section
-          data-background-image="images/background.jpg"
-          data-background-opacity="0.25"
-        >
-          <div class="codeText">
-            <div class="codeTextItem">
-              <h3>毕设成果为本PPT的演示提供支持！</h3>
-            </div>
-            <div class="codeTextItem">
-              <pre><code data-line-numbers data-trim data-noescape><script type="text/template">
-                 <!-- 前端 -->
-                <img src="http://172.26.222.85:3344/github.svg">
-
-                // 后端
-                async fn main() {
-                  // 监听ip地址和端口
-                  let listener = TcpListener::bind("0.0.0.0:3344").await;
-                  
-                  loop {
-                    // 建立TCP连接
-                    let stream = listener.accept().await;
-
-                    Runtime::spawn(async move {
-                      let mut buf = [0; BUF_LEN];
-                      
-                      // 接收HTTP请求
-                      stream.recv(&mut buf).await;
-                      
-                      // 处理HTTP请求
-                      handle_request(&mut buf);
-                      
-                      // 发送响应字节流
-                      stream.send(&buf).await;
-                    });
-                  }
-                }
-              </script></code></pre>
-            </div>
-          </div>
-        </section>
-        <!-- 本PPT演示依赖于我的毕设成果提供的支持。
-        这个PPT是一个前端项目，其中某些图片资源是请求后端返回的，
-        而后端服务是基于毕设项目Emma搭建的。-->
 
         <section data-background-image="images/background.jpg" data-background-opacity=0.25>
           <div class="imageText">
             <div class="imageTextItem">
-              <h2>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp感谢观看！</h2>
+              <h2 style="margin-left:80px">Thank you!</h2>
             </div>
             <div class="imageTextItem">
               <img src="images/chuangzhen.png" height="500" width="500">
